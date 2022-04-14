@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Viewport } from '.';
+  import { Viewport } from '$lib/container/viewport';
 </script>
 
 <div class="svelte-flow-wrapper">

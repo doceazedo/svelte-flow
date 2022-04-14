@@ -1,29 +1,29 @@
 <script lang="ts">
-  import { Wrapper } from './layout';
-  import {
-    NodeContent,
-    NodeHandle,
-    NodePath,
-    Node
-  } from './node';
-  import type { PathCoords, NodeData, Handle } from './svelte-flow.types';
+  import { Wrapper } from '.';
+  import { DefaultNode } from '$lib/components/nodes';
+  import { BezierEdge } from '$lib/components/edges';
+  import { Handle } from '$lib/components/handles';
+  import type { Edge, HandleElement, Node } from '$lib/types';
 
-  export let nodes: NodeData[] = [];
+  export let nodes: Node[] = [],
+    edges: Edge[] = [];
 
   const offsetX = 6;
   const offsetY = 12;
 
-  const getCoords = (handle: Handle, linkIndex: number): PathCoords => {
+  const getCoords = (handle: HandleElement, linkIndex: number): PathCoords => {
     const link = handle.links[linkIndex];
-    const foreignNode = nodes.find(x => x.id == link.nodeId);
-    const foreignHandle = foreignNode?.handles?.find(x => x.id == link.handleId);
+    const foreignNode = nodes.find((x) => x.id == link.nodeId);
+    const foreignHandle = foreignNode?.handles?.find(
+      (x) => x.id == link.handleId,
+    );
 
     if (!handle?.element) return null;
 
     const linkHandleRect = handle.element.getBoundingClientRect();
     const startPos = {
       startX: linkHandleRect.left - offsetX,
-      startY: linkHandleRect.top - offsetY
+      startY: linkHandleRect.top - offsetY,
     };
 
     if (link.draft != null)
@@ -31,27 +31,34 @@
         ...startPos,
         endX: link.draft.endX - offsetX,
         endY: link.draft.endY - offsetY,
-      }
-      
+      };
+
     if (!foreignHandle?.element) return null;
     const foreignHandleRect = foreignHandle.element.getBoundingClientRect();
 
     return {
       ...startPos,
       endX: foreignHandleRect.left - offsetX,
-      endY: foreignHandleRect.top - offsetY
+      endY: foreignHandleRect.top - offsetY,
     };
-  }
+  };
 
-  const addLink = (nodeId: string, handleId: string, foreignNodeId: string, foreignHandleId: string) => {
-    const nodeIndex = nodes.findIndex(x => x.id == nodeId);
-    const handleIndex = nodes[nodeIndex].handles.findIndex(x => x.id == handleId);
+  const addLink = (
+    nodeId: string,
+    handleId: string,
+    foreignNodeId: string,
+    foreignHandleId: string,
+  ) => {
+    const nodeIndex = nodes.findIndex((x) => x.id == nodeId);
+    const handleIndex = nodes[nodeIndex].handles.findIndex(
+      (x) => x.id == handleId,
+    );
     nodes[nodeIndex].handles[handleIndex].links.push({
       nodeId: foreignNodeId,
-      handleId: foreignHandleId
+      handleId: foreignHandleId,
     });
     nodes = nodes;
-  }
+  };
 </script>
 
 <Wrapper>
@@ -60,7 +67,7 @@
       <NodeContent>
         {node.data.label}
       </NodeContent>
-      
+
       {#each node.handles || [] as handle}
         <NodeHandle
           pos={handle.position}

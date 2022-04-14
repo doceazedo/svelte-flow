@@ -2,27 +2,31 @@
   import interact from 'interactjs';
   import { onMount } from 'svelte';
 
-  export let x = 0, y = 0;
+  export let x = 0,
+    y = 0;
   let node: HTMLDivElement;
 
   const move = (event) => {
     x += event.dx;
     y += event.dy;
-  }
+  };
 
   onMount(() => {
     interact(node, {
-      styleCursor: false
-    })
-      .draggable({
-        ignoreFrom: 'svelte-flow-handle',
-        autoScroll: true,
-        listeners: { move }
-      })
+      styleCursor: false,
+    }).draggable({
+      ignoreFrom: 'svelte-flow-handle',
+      autoScroll: true,
+      listeners: { move },
+    });
   });
 </script>
 
-<div class="svelte-flow-node" bind:this={node} style="transform: translate({x}px, {y}px)">
+<div
+  class="svelte-flow-node"
+  bind:this={node}
+  style="transform: translate({x}px, {y}px)"
+>
   <slot />
 </div>
 

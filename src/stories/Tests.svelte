@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SvelteFlow } from '$lib/components';
+  import { SvelteFlow } from '$lib';
   import { nodes } from './initial-data';
 </script>
 

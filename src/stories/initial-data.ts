@@ -1,4 +1,4 @@
-import type { NodeData } from '$lib/components/svelte-flow.types';
+import type { NodeData } from '$lib/svelte-flow.types';
 
 export const nodes: NodeData[] = [
   {
