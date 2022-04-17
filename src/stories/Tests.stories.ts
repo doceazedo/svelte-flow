@@ -15,5 +15,5 @@ const Template = () => ({
 
 export const Overview = Template.bind({});
 Overview.args = {
-  nodes
+  nodes,
 };

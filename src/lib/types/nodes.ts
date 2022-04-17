@@ -1,9 +1,15 @@
-import type { XYPosition } from './utils';
+import type { Position, XYPosition } from './utils';
+
+export type NodeData = {
+  label: string;
+  [key: string]: string;
+};
 
 export type Node = {
   id: string;
   position: XYPosition;
-  data: {
-    label: string;
-  };
+  type?: string;
+  targetPosition?: Position;
+  sourcePosition?: Position;
+  data: NodeData;
 };

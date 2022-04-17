@@ -1,62 +1,51 @@
-import type { NodeData } from '$lib/svelte-flow.types';
+import type { Edge, Node } from '$lib/types';
 
-export const nodes: NodeData[] = [
+export const nodes: Node[] = [
   {
     id: '1',
-    position: { x: -164, y: -112 },
-    handles: [
-      {
-        id: '1',
-        position: 'right'
-      }
-    ],
-    data: {
-      label: 'My first node'
-    }
+    type: 'input',
+    data: { label: 'An input node' },
+    position: { x: 0, y: 50 },
+    sourcePosition: 'right',
   },
   {
     id: '2',
-    position: { x: 164, y: 112 },
-    handles: [
-      {
-        id: '1',
-        position: 'left'
-      }
-    ],
-    data: {
-      label: 'Cute node (✿◠‿◠)'
-    }
+    type: 'selectorNode',
+    data: { label: '1 in / 2 out' },
+    position: { x: 300, y: 50 },
   },
   {
     id: '3',
-    position: { x: -160, y: 64 },
-    handles: [
-      {
-        id: '1',
-        position: 'bottom',
-        links: [
-          {
-            nodeId: '4',
-            handleId: '1'
-          }
-        ],
-      }
-    ],
-    data: {
-      label: 'Linked by default'
-    }
+    type: 'output',
+    data: { label: 'Output A' },
+    position: { x: 650, y: 25 },
+    targetPosition: 'left',
   },
   {
     id: '4',
-    position: { x: -340, y: 210 },
-    handles: [
-      {
-        id: '1',
-        position: 'top'
-      }
-    ],
-    data: {
-      label: 'Svelte rocks!'
-    }
-  }
+    type: 'output',
+    data: { label: 'Output B' },
+    position: { x: 650, y: 100 },
+    targetPosition: 'left',
+  },
+];
+
+export const edges: Edge[] = [
+  {
+    id: 'e1-2',
+    source: '1',
+    target: '2',
+  },
+  {
+    id: 'e2a-3',
+    source: '2',
+    target: '3',
+    sourceHandle: 'a',
+  },
+  {
+    id: 'e2b-4',
+    source: '2',
+    target: '4',
+    sourceHandle: 'b',
+  },
 ];

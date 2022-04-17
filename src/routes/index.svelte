@@ -1,6 +1,6 @@
 <script lang="ts">
   import { SvelteFlow } from '$lib';
-  import { nodes, edges } from './initial-data';
+  import { nodes, edges } from '../stories/initial-data';
 </script>
 
 <div class="container">

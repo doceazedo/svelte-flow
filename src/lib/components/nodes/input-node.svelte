@@ -1,15 +1,13 @@
 <script lang="ts">
-  import { Handle } from '$lib/components/handles';
+  import { Handle } from '../handles';
   import type { NodeData, Position } from '$lib/types';
 
   export let data: NodeData = null,
-    targetPosition: Position = 'top',
     sourcePosition: Position = 'bottom';
 </script>
 
 <div class="svelte-flow-node">
   {data?.label}
-  <Handle type="target" position={targetPosition} />
   <Handle type="source" position={sourcePosition} />
 </div>
 

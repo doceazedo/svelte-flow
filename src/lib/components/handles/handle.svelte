@@ -1,7 +1,14 @@
 <script lang="ts">
-  import interact from 'interactjs';
-  import { onMount } from 'svelte';
-  import type { Connection, HandleType, OnConnect, Position } from '$lib/types';
+  import { setContext, onMount } from 'svelte';
+  import { writable } from 'svelte/store';
+  import { getDraggableHandle, getDropzoneHandle } from '.';
+  import type {
+    Connection,
+    HandleType,
+    OnConnect,
+    Position,
+    XYPosition,
+  } from '$lib/types';
 
   export let type: HandleType,
     position: Position,
@@ -10,62 +17,19 @@
     isValidConnection: (connection: Connection) => boolean = null,
     id: string = null;
 
+  let handleEl: HTMLDivElement;
   let draggableEl: HTMLDivElement;
-  let x = 0;
-  let y = 0;
   let isDraggedIn = false;
 
-  const move = (event) => {
-    if (!links?.[links.length - 1]?.draft) {
-      links = [
-        ...links,
-        {
-          draft: {
-            endX: 0,
-            endY: 0,
-          },
-        },
-      ];
-    }
-
-    x += event.dx;
-    y += event.dy;
-
-    const endRect = event.target.getBoundingClientRect();
-    links[links.length - 1].draft.endX = endRect.left;
-    links[links.length - 1].draft.endY = endRect.top;
-  };
+  let pos = writable<XYPosition>({
+    x: 0,
+    y: 0,
+  });
+  setContext('pos', pos);
 
   onMount(() => {
-    interact(draggableEl, {
-      styleCursor: false,
-    }).draggable({
-      autoScroll: true,
-      listeners: {
-        move,
-        end: () => {
-          x = 0;
-          y = 0;
-        },
-      },
-    });
-
-    interact(handleEl, {
-      styleCursor: false,
-    }).dropzone({
-      accept: '.svelte-flow-handle-draggable',
-      overlap: 0.25,
-      ondragenter: () => (isDraggedIn = true),
-      ondragleave: () => (isDraggedIn = false),
-      ondropdeactivate: (event) => {
-        if (isDraggedIn) {
-          const originNodeId = event.relatedTarget?.dataset?.nodeid || '0';
-          const originHandleId = event.relatedTarget?.dataset?.handleid || '0';
-          addLink(originNodeId, originHandleId, nodeId, handleId);
-        }
-        links = links.filter((x) => !x?.draft);
-      },
-    });
+    const draggableHandle = getDraggableHandle(draggableEl);
+    const dropzoneHandle = getDropzoneHandle(handleEl);
   });
 </script>
 
@@ -80,9 +44,9 @@
   <div
     bind:this={draggableEl}
     data-nodeid={nodeId}
-    data-handleid={handleId}
+    data-handleid={id}
     class="svelte-flow-handle-draggable"
-    style="transform: translate({x}px, {y}px)"
+    style="transform: translate({$pos.x}px, {$pos.y}px)"
   />
 </div>
 
