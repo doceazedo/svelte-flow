@@ -12,4 +12,10 @@ export type Node = {
   targetPosition?: Position;
   sourcePosition?: Position;
   data: NodeData;
+  // width?: number;
+  // height?: number;
+
+  // only used internally
+  rect?: DOMRect;
+  // positionAbsolute?: XYPosition;
 };

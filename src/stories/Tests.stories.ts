@@ -1,12 +1,8 @@
 import Tests from './Tests.svelte';
-import { nodes } from './initial-data';
 
 export default {
   title: 'Examples',
   component: Tests,
-  argTypes: {
-    nodes: { control: 'object' },
-  },
 };
 
 const Template = () => ({
@@ -14,6 +10,3 @@ const Template = () => ({
 });
 
 export const Overview = Template.bind({});
-Overview.args = {
-  nodes,
-};

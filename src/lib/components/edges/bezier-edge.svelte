@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { BaseEdge } from '.';
   import type { Position } from '$lib/types';
 
@@ -154,7 +153,7 @@
   let centerX: number;
   let centerY: number;
 
-  onMount(() => {
+  $: {
     params = {
       sourceX,
       sourceY,
@@ -166,7 +165,7 @@
     };
     path = getBezierPath(params);
     [centerX, centerY] = getBezierCenter(params);
-  });
+  }
 </script>
 
 <BaseEdge

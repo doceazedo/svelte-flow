@@ -2,8 +2,8 @@
   import { EdgeText } from '.';
 
   export let path: string,
-    centerX: number,
-    centerY: number,
+    centerX = 0,
+    centerY = 0,
     label: string = null,
     labelShowBg: boolean = null,
     labelBgPadding: [number, number] = null,
@@ -21,3 +21,9 @@
     {labelBgBorderRadius}
   />
 {/if}
+
+<style lang="sass">
+  path
+    fill: none
+    stroke: #cbcbcb
+</style>

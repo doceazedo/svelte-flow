@@ -3,6 +3,7 @@
   import { DefaultNode, InputNode, OutputNode } from '$lib/components/nodes';
   import { BezierEdge } from '$lib/components/edges';
   import { Attribution } from '$lib/components/attribution';
+  import { setFlowContexts } from '$lib/contexts';
   import type { ComponentsList, Edge, Node } from '$lib/types';
 
   const defaultNodeTypes = {
@@ -19,6 +20,8 @@
     edges: Edge[] = [],
     nodeTypes: ComponentsList = defaultNodeTypes,
     edgeTypes: ComponentsList = defaultEdgeTypes;
+
+  /*$:*/ setFlowContexts(nodes, edges, nodeTypes, edgeTypes);
 </script>
 
 <div class="svelte-flow-wrapper">
@@ -28,6 +31,8 @@
 
 <style lang="sass">
   .svelte-flow-wrapper
+    position: relative
     width: 100%
     height: 100%
+    overflow: hidden
 </style>

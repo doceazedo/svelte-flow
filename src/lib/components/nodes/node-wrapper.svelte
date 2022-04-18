@@ -3,17 +3,23 @@
   import { onMount } from 'svelte';
 
   export let x = 0,
-    y = 0;
+    y = 0,
+    rect: DOMRect;
 
   const handleClass = 'svelte-flow-handle';
   let wrapper: HTMLDivElement;
 
+  const updateSizePos = () => (rect = wrapper.getBoundingClientRect());
+
   const move = (event) => {
     x += event.dx;
     y += event.dy;
+    // updateSizePos();
   };
 
   onMount(() => {
+    updateSizePos();
+
     interact(wrapper, {
       styleCursor: false,
     }).draggable({

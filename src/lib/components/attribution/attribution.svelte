@@ -3,7 +3,7 @@
 </script>
 
 {#if !hide}
-  <a href="/" class="svelte-flow-attribution">Svelte Flow</a>
+  <a href="/" target="_blank" class="svelte-flow-attribution">Svelte Flow</a>
 {/if}
 
 <style lang="sass">
@@ -12,5 +12,8 @@
     bottom: 0
     right: 0
     padding: .25rem
+    font-size: 10px
+    text-decoration: none
+    color: #555
     background-color: rgba(#fff, .25)
 </style>

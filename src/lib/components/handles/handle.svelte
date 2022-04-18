@@ -20,6 +20,7 @@
   let handleEl: HTMLDivElement;
   let draggableEl: HTMLDivElement;
   let isDraggedIn = false;
+  let nodeId: string;
 
   let pos = writable<XYPosition>({
     x: 0,
