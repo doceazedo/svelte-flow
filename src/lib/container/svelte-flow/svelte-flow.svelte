@@ -18,10 +18,15 @@
 
   export let nodes: Node[] = [],
     edges: Edge[] = [],
-    nodeTypes: ComponentsList = defaultNodeTypes,
-    edgeTypes: ComponentsList = defaultEdgeTypes;
+    nodeTypes: ComponentsList = null,
+    edgeTypes: ComponentsList = null;
 
-  /*$:*/ setFlowContexts(nodes, edges, nodeTypes, edgeTypes);
+  setFlowContexts(
+    nodes,
+    edges,
+    { ...defaultNodeTypes, ...nodeTypes },
+    { ...defaultEdgeTypes, ...edgeTypes },
+  );
 </script>
 
 <div class="svelte-flow-wrapper">

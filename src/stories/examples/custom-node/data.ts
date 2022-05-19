@@ -10,8 +10,7 @@ export const nodes: Node[] = [
   },
   {
     id: '2',
-    type: 'selectorNode',
-    data: { label: '1 in / 2 out' },
+    type: 'colorPickerNode',
     position: { x: 0, y: 0 },
   },
   {

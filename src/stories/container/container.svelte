@@ -1,10 +1,5 @@
-<script lang="ts">
-  import { SvelteFlow } from '$lib';
-  import { nodes, edges } from './initial-data';
-</script>
-
 <div class="container">
-  <SvelteFlow {nodes} {edges} />
+  <slot />
 </div>
 
 <style lang="sass">

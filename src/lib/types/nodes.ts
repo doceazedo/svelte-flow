@@ -12,7 +12,7 @@ export type Node = {
   type?: string;
   targetPosition?: Position;
   sourcePosition?: Position;
-  data: NodeData;
+  data?: NodeData;
   // width?: number;
   // height?: number;
 
