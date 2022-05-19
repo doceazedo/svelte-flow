@@ -11,15 +11,15 @@
     const targetNode = nodes.find((node) => edge.target == node.id);
     if (!sourceNode?.element || !targetNode?.element) return;
 
-    const sourceHandle = sourceNode.handles.find(
-      (handle) =>
-        edge.sourceHandle == handle.id ||
-        sourceNode.sourcePosition == handle.position,
+    const sourceHandle = sourceNode.handles.find((handle) =>
+      edge.sourceHandle
+        ? edge.sourceHandle == handle.id
+        : handle.type == 'source',
     );
-    const targetHandle = targetNode.handles.find(
-      (handle) =>
-        edge.targetHandle == handle.id ||
-        targetNode.targetPosition == handle.position,
+    const targetHandle = targetNode.handles.find((handle) =>
+      edge.targetHandle
+        ? edge.targetHandle == handle.id
+        : handle.type == 'target',
     );
     if (!sourceHandle?.element || !targetHandle?.element) return;
 

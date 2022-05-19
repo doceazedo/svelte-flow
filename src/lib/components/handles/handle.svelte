@@ -35,6 +35,7 @@
     const dropzoneHandle = getDropzoneHandle(handleEl);
     node.handles.push({
       id,
+      type,
       position,
       element: handleEl,
     });
