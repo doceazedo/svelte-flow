@@ -1,77 +1,49 @@
 <script lang="ts">
   import { getFlowContexts } from '$lib/contexts';
-  import type { Node, Position, XYPosition } from '$lib/types';
+  import type { Edge, Node } from '$lib/types';
 
   const { edges, edgeTypes, nodes } = getFlowContexts();
 
-  const getHandlePosition = (
-    position: Position,
-    nodeRect: DOMRect,
-    handle?: any,
-  ): XYPosition => {
-    const x = (handle?.x || 0) + nodeRect.x;
-    const y = (handle?.y || 0) + nodeRect.y;
-    const width = handle?.width || nodeRect.width;
-    const height = handle?.height || nodeRect.height;
+  const getEdgePositions = (nodes: Node[], edge: Edge) => {
+    const offset = 12; // ???
 
-    switch (position) {
-      case 'top':
-        return {
-          x: x + width / 2,
-          y,
-        };
-      case 'right':
-        return {
-          x: x + width,
-          y: y + height / 2,
-        };
-      case 'bottom':
-        return {
-          x: x + width / 2,
-          y: y + height,
-        };
-      case 'left':
-        return {
-          x,
-          y: y + height / 2,
-        };
-    }
-  };
+    const sourceNode = nodes.find((node) => edge.source == node.id);
+    const targetNode = nodes.find((node) => edge.target == node.id);
+    if (!sourceNode?.element || !targetNode?.element) return;
 
-  const getEdgePositions = (
-    nodes: Node[],
-    sourceId: string,
-    targetId: string,
-  ) => {
-    const source = nodes.find((node) => node.id == sourceId);
-    const target = nodes.find((node) => node.id == targetId);
-    if (!source?.rect || !target?.rect) return;
-
-    const sourceHandlePos = getHandlePosition(
-      source.sourcePosition,
-      source.rect,
-      // sourceHandle (HandleElement)
+    const sourceHandle = sourceNode.handles.find(
+      (handle) =>
+        edge.sourceHandle == handle.id ||
+        sourceNode.sourcePosition == handle.position,
     );
-    const targetHandlePos = getHandlePosition(
-      target.targetPosition,
-      target.rect,
-      // targetHandle (HandleElement)
+    const targetHandle = targetNode.handles.find(
+      (handle) =>
+        edge.targetHandle == handle.id ||
+        targetNode.targetPosition == handle.position,
     );
+    if (!sourceHandle?.element || !targetHandle?.element) return;
+
+    const sourceHandleRect = sourceHandle.element.getBoundingClientRect();
+    const targetHandleRect = targetHandle.element.getBoundingClientRect();
 
     return {
-      sourceX: sourceHandlePos.x,
-      sourceY: sourceHandlePos.y,
-      targetX: targetHandlePos.x,
-      targetY: targetHandlePos.y,
+      sourcePos: sourceHandle.position,
+      sourceX: sourceHandleRect.x - offset,
+      sourceY: sourceHandleRect.y - offset,
+      targetPos: targetHandle.position,
+      targetX: targetHandleRect.x - offset,
+      targetY: targetHandleRect.y - offset,
     };
   };
 </script>
 
 <svg class="svelte-flow-edge-renderer">
   {#each $edges as edge}
-    {@const pos = getEdgePositions($nodes, edge.source, edge.target)}
+    {@const pos = getEdgePositions($nodes, edge)}
     <svelte:component
       this={$edgeTypes[edge.type] || $edgeTypes?.default}
+      sourcePosition={pos?.sourcePos}
+      targetPosition={pos?.targetPos}
       sourceX={pos?.sourceX}
       sourceY={pos?.sourceY}
       targetX={pos?.targetX}

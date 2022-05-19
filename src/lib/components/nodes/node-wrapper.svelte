@@ -1,15 +1,14 @@
 <script lang="ts">
   import interact from 'interactjs';
   import { onMount } from 'svelte';
+  import type { HandleElement } from '$lib/types';
 
   export let x = 0,
     y = 0,
-    rect: DOMRect;
+    element: HTMLElement;
+  export const handles: HandleElement[] = [];
 
   const handleClass = 'svelte-flow-handle';
-  let wrapper: HTMLDivElement;
-
-  const updateSizePos = () => (rect = wrapper.getBoundingClientRect());
 
   const move = (event) => {
     x += event.dx;
@@ -18,9 +17,7 @@
   };
 
   onMount(() => {
-    updateSizePos();
-
-    interact(wrapper, {
+    interact(element, {
       styleCursor: false,
     }).draggable({
       ignoreFrom: handleClass,
@@ -31,7 +28,7 @@
 </script>
 
 <div
-  bind:this={wrapper}
+  bind:this={element}
   class="svelte-flow-node-wrapper"
   style="transform: translate({x}px, {y}px)"
 >

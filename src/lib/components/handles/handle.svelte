@@ -5,12 +5,14 @@
   import type {
     Connection,
     HandleType,
+    Node,
     OnConnect,
     Position,
     XYPosition,
   } from '$lib/types';
 
   export let type: HandleType,
+    node: Node = null,
     position: Position,
     isConnectable: boolean = true,
     onConnect: OnConnect = null,
@@ -31,6 +33,11 @@
   onMount(() => {
     const draggableHandle = getDraggableHandle(draggableEl);
     const dropzoneHandle = getDropzoneHandle(handleEl);
+    node.handles.push({
+      id,
+      position,
+      element: handleEl,
+    });
   });
 </script>
 

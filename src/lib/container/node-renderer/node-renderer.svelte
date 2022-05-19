@@ -7,13 +7,14 @@
 
 {#each $nodes as node}
   <NodeWrapper
+    bind:element={node.element}
+    bind:handles={node.handles}
     bind:x={node.position.x}
     bind:y={node.position.y}
-    bind:rect={node.rect}
   >
     <svelte:component
       this={$nodeTypes[node.type] || $nodeTypes?.default}
-      data={node?.data}
+      bind:node
       bind:targetPosition={node.targetPosition}
       bind:sourcePosition={node.sourcePosition}
     />

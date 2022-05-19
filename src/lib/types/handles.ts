@@ -1,8 +1,9 @@
-import type { XYPosition, Position } from './utils';
+import type { Position } from './utils';
 
 export type HandleType = 'source' | 'target';
 
 export type HandleElement = {
   id: string;
   position: Position;
-} & XYPosition;
+  element: HTMLElement;
+};

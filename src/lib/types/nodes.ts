@@ -1,4 +1,5 @@
 import type { Position, XYPosition } from './utils';
+import type { HandleElement } from './handles';
 
 export type NodeData = {
   label: string;
@@ -16,6 +17,7 @@ export type Node = {
   // height?: number;
 
   // only used internally
-  rect?: DOMRect;
+  element?: HTMLElement;
+  handles?: HandleElement[];
   // positionAbsolute?: XYPosition;
 };
