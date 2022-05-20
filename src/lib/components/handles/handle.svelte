@@ -1,9 +1,11 @@
 <script lang="ts">
   import { setContext, onMount } from 'svelte';
-  import { writable } from 'svelte/store';
+  import { getFlowContexts } from '$lib/contexts';
   import { getDraggableHandle, getDropzoneHandle } from '.';
   import type {
     Connection,
+    EdgePosition,
+    Edge,
     HandleType,
     Node,
     OnConnect,
@@ -19,20 +21,88 @@
     isValidConnection: (connection: Connection) => boolean = null,
     id: string = null;
 
+  const { edges } = getFlowContexts();
+
   let handleEl: HTMLDivElement;
   let draggableEl: HTMLDivElement;
-  let isDraggedIn = false;
-  let nodeId: string;
 
-  let pos = writable<XYPosition>({
+  let pos: XYPosition = {
     x: 0,
     y: 0,
-  });
-  setContext('pos', pos);
+  };
+
+  const oppositePos: { [pos: string]: Position } = {
+    left: 'right',
+    right: 'left',
+    top: 'bottom',
+    bottom: 'top',
+  };
+
+  const getEdgePosition = (): EdgePosition => {
+    const offset = 12; // ???
+    const sourceRect = handleEl.getBoundingClientRect();
+    const targetRect = draggableEl.getBoundingClientRect();
+    const edgesPos = {
+      sourceX: sourceRect.x - offset,
+      sourceY: sourceRect.y - offset,
+      targetX: targetRect.x - offset,
+      targetY: targetRect.y - offset,
+      sourcePos: position,
+      targetPos: oppositePos[position],
+    };
+    return edgesPos;
+  };
+
+  const start = () => {
+    const edgePos = getEdgePosition();
+    const draft: Edge = {
+      id: '',
+      source: '',
+      target: '',
+      position: edgePos,
+      draft: true,
+    };
+    $edges.push(draft);
+  };
+
+  const move = (event) => {
+    const position = getEdgePosition();
+    const i = $edges.findIndex((edge) => edge.draft);
+    $edges[i].position = position;
+
+    pos.x += event.dx;
+    pos.y += event.dy;
+  };
+
+  const end = () => {
+    $edges = $edges.filter((edge) => !edge.draft);
+    pos = { x: 0, y: 0 };
+  };
+
+  const createEdge = (
+    source: string,
+    sourceHandle: string,
+    target: string,
+    targetHandle: string,
+  ) => {
+    const id = `e${source}${sourceHandle || ''}-${target}${targetHandle || ''}`;
+
+    $edges = [
+      ...$edges,
+      {
+        id,
+        source,
+        sourceHandle,
+        target,
+        targetHandle,
+      },
+    ];
+    console.log($edges);
+  };
 
   onMount(() => {
-    const draggableHandle = getDraggableHandle(draggableEl);
-    const dropzoneHandle = getDropzoneHandle(handleEl);
+    const draggableHandle = getDraggableHandle(draggableEl, start, move, end);
+    const dropzoneHandle = getDropzoneHandle(handleEl, node.id, id, createEdge);
     node.handles.push({
       id,
       type,
@@ -52,10 +122,10 @@
 >
   <div
     bind:this={draggableEl}
-    data-nodeid={nodeId}
+    data-nodeid={node.id}
     data-handleid={id}
     class="svelte-flow-handle-draggable"
-    style="transform: translate({$pos.x}px, {$pos.y}px)"
+    style="transform: translate({pos.x}px, {pos.y}px)"
   />
 </div>
 

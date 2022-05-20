@@ -1,10 +1,10 @@
 <script lang="ts">
   import { getFlowContexts } from '$lib/contexts';
-  import type { Edge, Node } from '$lib/types';
+  import type { Edge, EdgePosition, Node } from '$lib/types';
 
   const { edges, edgeTypes, nodes } = getFlowContexts();
 
-  const getEdgePositions = (nodes: Node[], edge: Edge) => {
+  const getEdgePositions = (nodes: Node[], edge: Edge): EdgePosition => {
     const offset = 12; // ???
 
     const sourceNode = nodes.find((node) => edge.source == node.id);
@@ -39,7 +39,7 @@
 
 <svg class="svelte-flow-edge-renderer">
   {#each $edges as edge}
-    {@const pos = getEdgePositions($nodes, edge)}
+    {@const pos = edge?.position || getEdgePositions($nodes, edge)}
     <svelte:component
       this={$edgeTypes[edge.type] || $edgeTypes?.default}
       sourcePosition={pos?.sourcePos}
