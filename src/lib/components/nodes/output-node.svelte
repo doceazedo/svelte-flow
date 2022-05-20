@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { NodeContent } from '.';
   import { Handle } from '../handles';
   import type { Node, Position } from '$lib/types';
 
@@ -6,14 +7,7 @@
     targetPosition: Position = 'top';
 </script>
 
-<div class="svelte-flow-node">
+<NodeContent class={node?.className}>
   {node?.data?.label}
   <Handle type="target" bind:node position={targetPosition} />
-</div>
-
-<style lang="sass">
-  @import '../../_mixins'
-
-  .svelte-flow-node
-    @include node
-</style>
+</NodeContent>

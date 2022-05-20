@@ -13,6 +13,7 @@ export type Node = {
   targetPosition?: Position;
   sourcePosition?: Position;
   data?: NodeData;
+  className?: string;
   // width?: number;
   // height?: number;
 

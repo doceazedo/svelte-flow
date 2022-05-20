@@ -19,9 +19,10 @@ export const nodes: Node[] = [
   {
     id: '3',
     data: {
-      label: 'This one will have a custom style someday',
+      label: 'This one has a custom style',
     },
     position: { x: 150, y: -50 },
+    className: 'my-custom-style',
   },
   {
     id: '4',

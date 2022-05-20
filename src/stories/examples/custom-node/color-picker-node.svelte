@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { NodeContent } from '$lib/components/nodes';
   import { Handle } from '$lib/components/handles';
   import type { Node } from '$lib/types';
 
@@ -7,20 +8,17 @@
   let value = '#ff4785';
 </script>
 
-<div class="svelte-flow-node">
+<NodeContent class="color-picker-node {node?.className || ''}">
   Color: {value}
   <input type="color" bind:value />
 
   <Handle type="target" bind:node position="left" />
   <Handle type="source" bind:node position="right" id="a" />
   <Handle type="source" bind:node position="right" id="b" />
-</div>
+</NodeContent>
 
 <style lang="sass">
-  @import '../../../../src/lib/_mixins' // 🤢
-
-  .svelte-flow-node
-    @include node
+  :global(.color-picker-node)
     display: flex
     flex-direction: column
     align-items: center
