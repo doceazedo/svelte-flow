@@ -5,9 +5,9 @@
     centerX = 0,
     centerY = 0,
     label: string = null,
-    labelShowBg: boolean = null,
-    labelBgPadding: [number, number] = null,
-    labelBgBorderRadius: number = null;
+    labelShowBg = true,
+    labelBgPadding: [number, number] = [2, 4],
+    labelBgBorderRadius: number = 2;
 </script>
 
 <path d={path} />

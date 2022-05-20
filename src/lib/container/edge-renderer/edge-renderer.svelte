@@ -48,6 +48,7 @@
       sourceY={pos?.sourceY}
       targetX={pos?.targetX}
       targetY={pos?.targetY}
+      label={edge?.label}
     />
   {/each}
 </svg>

@@ -29,9 +29,9 @@
     sourcePosition: Position = 'bottom',
     targetPosition: Position = 'top',
     label: string = null,
-    labelShowBg: boolean = null,
-    labelBgPadding: [number, number] = null,
-    labelBgBorderRadius: number = null,
+    labelShowBg = true,
+    labelBgPadding: [number, number] = [2, 4],
+    labelBgBorderRadius: number = 2,
     curvature: number = null;
 
   const calculateControlOffset = (distance: number, curvature: number) => {

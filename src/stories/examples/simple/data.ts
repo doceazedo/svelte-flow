@@ -7,7 +7,7 @@ export const nodes: Node[] = [
     data: {
       label: 'Welcome to Svelte Flow!',
     },
-    position: { x: 0, y: -150 },
+    position: { x: 0, y: -175 },
   },
   {
     id: '2',
@@ -25,7 +25,7 @@ export const nodes: Node[] = [
   },
   {
     id: '4',
-    position: { x: 0, y: 50 },
+    position: { x: 0, y: 75 },
     data: {
       label: 'Another default node',
     },
@@ -35,7 +35,7 @@ export const nodes: Node[] = [
     data: {
       label: 'Node id: 5',
     },
-    position: { x: 0, y: 150 },
+    position: { x: 0, y: 175 },
   },
 ];
 
