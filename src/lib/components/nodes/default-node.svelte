@@ -8,8 +8,7 @@
     sourcePosition: Position = 'bottom';
 </script>
 
-<NodeContent class={node?.className}>
-  {node?.data?.label}
+<NodeContent class={node?.className} label={node?.data?.label}>
   <Handle type="target" bind:node position={targetPosition} />
   <Handle type="source" bind:node position={sourcePosition} />
 </NodeContent>

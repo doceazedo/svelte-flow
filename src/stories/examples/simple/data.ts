@@ -1,3 +1,4 @@
+import CustomLabel from './custom-label.svelte';
 import type { Edge, Node } from '$lib/types';
 
 export const nodes: Node[] = [
@@ -12,7 +13,7 @@ export const nodes: Node[] = [
   {
     id: '2',
     data: {
-      label: 'This is a <b>default node</b>',
+      label: CustomLabel,
     },
     position: { x: -150, y: -50 },
   },
