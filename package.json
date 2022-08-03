@@ -24,6 +24,8 @@
     "@storybook/svelte": "^6.5.0-alpha.61",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
+    "@types/d3-selection": "^3.0.3",
+    "@types/d3-zoom": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "babel-loader": "^8.2.4",
@@ -44,6 +46,8 @@
   },
   "type": "module",
   "dependencies": {
+    "d3-selection": "^3.0.0",
+    "d3-zoom": "^3.0.0",
     "interactjs": "^1.10.11"
   }
 }
