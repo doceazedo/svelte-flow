@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This project is deprecated in favor of [Svelte Flow](https://svelteflow.dev/), an official implementation of xyflow (formerly React Flow) — the now framework-agnostic library that inspired this project.
+
 # Svelte Flow
 
 Cool node graphs and diagrams, inspired by [React Flow](https://github.com/wbkd/react-flow).
